@@ -1,0 +1,58 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+
+header {
+	text-align: center;
+	background-color: hotpink;
+	color: white;
+	margin: 0;
+	padding: 0;
+	
+}
+h1 {
+	margin: 0;
+	/*padding: .3em;*/
+	font-size: 5em;
+
+}
+
+#gameboard {
+	display: grid;
+	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+	margin: 1em auto;
+	height: 75vh;
+	width: 75vh;
+
+}
+
+.box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20vh; 
+}
+
+.box:hover{
+	background-color: yellow;
+}
+
+/*Box borders to make gameboard*/
+#box1, #box4, #box7 {
+	border-left: 10px solid black;
+	border-right: 5px solid black;
+}
+#box3, #box6, #box9 {
+	border-right: 10px solid black;
+	border-left: 5px solid black;
+}
+#box1, #box2, #box3 {
+	border-top: 10px solid black;
+	border-bottom: 5px solid black;
+}
+#box7, #box8, #box9 {
+	border-bottom: 10px solid black;
+	border-top: 5px solid black;
+}
