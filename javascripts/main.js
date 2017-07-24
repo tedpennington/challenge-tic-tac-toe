@@ -1,5 +1,9 @@
 console.log("main.js loaded");
 
+//  NOTES:
+
+// Multiple clicks on boxes are currently allowed.  Resulted in false-win even after changing back to correct X/O
+
 // 2-D Array for Game
 const gameArr =[
 	["X","O","X"],
@@ -19,7 +23,11 @@ var boardBox7 = document.getElementById("box7");
 var boardBox8 = document.getElementById("box8");
 var boardBox9 = document.getElementById("box9");
 
+var messageBox = document.getElementById("message-box");
 
+// Sounds for game
+var winnerBell = new Audio("audio/winner_bell.mp3");
+// winnerBell.play();
 
 
 
@@ -46,8 +54,8 @@ function initializeArray(array){
 			array[i][j] = "";
 		};
 	};
-	console.log("Array Initialized : ")
-	console.table(array);	
+	// console.log("Array Initialized : ")
+	// console.table(array);	
 };
 
 // initializeArray(gameArr);
@@ -73,20 +81,30 @@ function togglePlayer(){
 
 // togglePlayer();	
 
+// Functions to be used in checkSame below to eval if X or O
+let isX = (item) =>	item === "X" ? true : false;
+let isO = (item) =>	item === "O" ? true : false;
+
+
 function checkSame(val1, val2, val3) {
 	var arr = [val1, val2, val3];
-	if(val1 !== "" && val2 !== "" && val3 !== "" ) {
-		for(var i = 1; i < arr.length; i++) {	
-			if(arr[i] !== arr[0]) {
-			    return false;
-			}else{
-				return true;
-			}
+	if (arr.every(isX) || arr.every(isO)) {
+		return true;
+	}else{ 
+		return false;
+	}
 
-	    };
-		
-	} 
-    
+
+	// if(val1 !== "" && val2 !== "" && val3 !== "" ) {
+	// 	console.log("arr", arr);
+	// 	if (val1 === val2 && val1 === val3){
+	// 		    return true;
+	// 		}else{
+	// 			// console.log("checkSame True because: ", "val1 is: "+val1 + " = " + "val2 is: "+val2 + " = " + "val3 is: "+val3);
+	// 			return false;
+	// 		}
+
+	//     }; 
     
 };
 
@@ -94,8 +112,21 @@ function checkSame(val1, val2, val3) {
 
 
 
+
+
+
 // Check if there's a winner (or tie)
 function checkWinner(){
+	console.log("checkSame results below:")
+	console.log("row 1: ", checkSame(gameArr[0][0], gameArr[0][1], gameArr[0][2]));
+	console.log("diag l2r: ", checkSame(gameArr[0][0], gameArr[1][1], gameArr[2][2]));
+	console.log("column 1: ", checkSame(gameArr[0][0], gameArr[1][0], gameArr[2][0]));
+	console.log("column 2: ", checkSame(gameArr[0][1], gameArr[1][1], gameArr[2][1]));
+	console.log("diag r2l: ", checkSame(gameArr[0][2], gameArr[1][1], gameArr[2][0]));
+	console.log("column 3: ", checkSame(gameArr[0][2], gameArr[1][2], gameArr[2][2]));
+	console.log("row 2: ", checkSame(gameArr[1][0], gameArr[1][1], gameArr[1][2]));
+	console.log("row 3: ", checkSame(gameArr[2][0], gameArr[2][1], gameArr[2][2]));
+
 	if (checkSame(gameArr[0][0], gameArr[0][1], gameArr[0][2]) ||
 		checkSame(gameArr[0][0], gameArr[1][1], gameArr[2][2]) || 
 		checkSame(gameArr[0][0], gameArr[1][0], gameArr[2][0]) ||
@@ -104,11 +135,21 @@ function checkWinner(){
 		checkSame(gameArr[0][2], gameArr[1][2], gameArr[2][2]) ||
 		checkSame(gameArr[1][0], gameArr[1][1], gameArr[1][2]) ||
 		checkSame(gameArr[2][0], gameArr[2][1], gameArr[2][2]))	 {
-			console.log("WINNER");
+			winner();
+			console.log("Player " + currentPlayer + " wins!!!");
+			console.table(gameArr);
 		
 		};
-	console.log("checkWinner ran");
+	// console.log("checkWinner ran");
 };
+
+// What to do when there's a winner
+function winner(){
+	messageBox.innerText = `Player ${currentPlayer} wins!!!`;
+	// winnerBell.play();
+}
+
+
 
 
 const gameBoard = document.getElementById("gameboard");
