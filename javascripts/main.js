@@ -26,9 +26,27 @@ var boardBox9 = document.getElementById("box9");
 var messageBox = document.getElementById("message-box");
 
 // Sounds for game
-var winnerBell = new Audio("audio/winner_bell.mp3");
-// winnerBell.play();
+var winnerBellSound = new Audio("audio/winner_bell.mp3");
+// winnerBellSound.play();
 
+// Sounds for the randoms
+var bananaSound = new Audio("audio/banana.mp3");
+var battleCrySound = new Audio("audio/battle_cry.mp3");
+var ewwSound = new Audio("audio/eww.mp3");
+var ohSnapSound = new Audio("audio/oh_snap.mp3");
+var omgSound = new Audio("audio/omg.mp3");
+
+// Array of the random sounds
+var randomSoundArr = [bananaSound, battleCrySound, ewwSound, ohSnapSound, omgSound];
+
+// pass this function the random sounds array and it plays a random one
+function playRandomSound (soundsArr) {
+	let i = Math.floor(Math.random() * 1000) % soundsArr.length;
+	soundsArr[i].play();
+}
+
+// Yay, it works!
+// playRandomSound(randomSoundArr);
 
 
 // Update DOM with current array values
@@ -81,6 +99,7 @@ function togglePlayer(){
 
 // togglePlayer();	
 
+
 // Functions to be used in checkSame below to eval if X or O
 let isX = (item) =>	item === "X" ? true : false;
 let isO = (item) =>	item === "O" ? true : false;
@@ -107,10 +126,6 @@ function checkSame(val1, val2, val3) {
 	//     }; 
     
 };
-
-
-
-
 
 
 
@@ -146,7 +161,14 @@ function checkWinner(){
 // What to do when there's a winner
 function winner(){
 	messageBox.innerText = `Player ${currentPlayer} wins!!!`;
-	// winnerBell.play();
+	winnerBellSound.play();
+	// 20 cornifys
+	let times = 50;
+	for(var i=0; i < times; i++){
+		cornify_add();
+	}
+
+	// setTimeout(function () {winnerBellSound.play()}, 1000);
 }
 
 
@@ -159,54 +181,63 @@ gameBoard.addEventListener("click", event => {
 	switch(event.target.id) {
 		case "box1":
 			gameArr[0][0] = currentPlayer;
+			playRandomSound(randomSoundArr);
 			updateBoardDisp();
 			checkWinner();
 			togglePlayer();
 			break;
 		case "box2":
 			gameArr[0][1] = currentPlayer;
+			playRandomSound(randomSoundArr);
 			updateBoardDisp();
 			checkWinner();
 			togglePlayer();
 			break;
 		case "box3":
 			gameArr[0][2] = currentPlayer;
+			playRandomSound(randomSoundArr);
 			updateBoardDisp();
 			checkWinner();
 			togglePlayer();
 			break;
 		case "box4":
 			gameArr[1][0] = currentPlayer;
+			playRandomSound(randomSoundArr);
 			updateBoardDisp();
 			checkWinner();
 			togglePlayer();
 			break;
 		case "box5":
 			gameArr[1][1] = currentPlayer;
+			playRandomSound(randomSoundArr);
 			updateBoardDisp();
 			checkWinner();
 			togglePlayer();
 			break;
 		case "box6":
 			gameArr[1][2] = currentPlayer;
+			playRandomSound(randomSoundArr);
 			updateBoardDisp();
 			checkWinner();
 			togglePlayer();
 			break;
 		case "box7":
 			gameArr[2][0] = currentPlayer;
+			playRandomSound(randomSoundArr);
 			updateBoardDisp();
 			checkWinner();
 			togglePlayer();
 			break;
 		case "box8":
 			gameArr[2][1] = currentPlayer;
+			playRandomSound(randomSoundArr);
 			updateBoardDisp();
 			checkWinner();
 			togglePlayer();
 			break;
 		case "box9":
 			gameArr[2][2] = currentPlayer;
+			playRandomSound(randomSoundArr);
 			updateBoardDisp();
 			checkWinner();
 			togglePlayer();
